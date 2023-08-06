@@ -36,18 +36,12 @@ export const __dirname = path.dirname(__filename);
 
 
  export async function connectMongo() {
-   try {     
-                     /* PONER TU STRING ENTERO ACA DE LA OPCION DRIVER */
-       // Podemos crear la base de datos desde aca luego del mongodb.net/ depues va el nombre de la base
-      
+   try {                  
        const mongodbUrl = process.env.MONGODB_URL;      
-
-       await connect(mongodbUrl
-       
+       await connect(mongodbUrl);
        //"mongodb+srv://tomasmagnin:wRHD9t0bpXzg74iX@backendcoder.tsh7jee.mongodb.net/ecommerce?retryWrites=true&w=majority"
-       );
- 
-     console.log("plug to mongo!");          // Si sale bien imprimimos.
+       
+       console.log("plug to mongo!");          // Si sale bien imprimimos.
     
     } catch (error) {
       console.log(error);
@@ -63,7 +57,7 @@ export const __dirname = path.dirname(__filename);
 
 
  export function connectSocket(httpServer) {         // El servidor Socket toma como argumento a un servidor HTTP existente, al cual se conecta
- const socketServer = new Server(httpServer);        // Creamos un nuevo objeto servidor de Socket y lo guardamos en una variable. El objeto es una representacion del servidor socket. 
+    const socketServer = new Server(httpServer);        // Creamos un nuevo objeto servidor de Socket y lo guardamos en una variable. El objeto es una representacion del servidor socket. 
  
  // Creamos en nuevo servidor de Socket y lo guardamos en una variable. Le pasamos al servidor de socket el servidor de HTTP.
  // Toda la configuracion de a partir de esta linea es la del Backend.

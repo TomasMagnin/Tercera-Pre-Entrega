@@ -1,4 +1,4 @@
-import { ProductModel } from '../DAO/models/products.model.js';
+import { ProductMongo } from '../DAO/mongo/products.mongo';
 import { ProductService } from '../services/products.service.js';
 import { CartService } from '../services/carts.service.js';
 
@@ -8,7 +8,7 @@ const cartService = new CartService();
 export class ViewsService {
     async getHome(queryParams) {
         try {
-            const products = await productService.get(queryParams);
+            const products = await productService.getAllProducts(queryParams);
             return products;
         } catch (error) {
             console.error(error);
@@ -18,7 +18,7 @@ export class ViewsService {
 
     async getRealTimeProducts() {
         try {
-            const products = await productService.get();
+            const products = await productService.getAllProducts();
             return products;
         } catch (error) {
             throw new Error('Error in server');
@@ -37,7 +37,7 @@ export class ViewsService {
                 hasNextPage,
                 prevLink,
                 nextLink,
-            } = await productService.get(queryParams);
+            } = await productService.getAllProducts(queryParams);
             let productsSimplified = products.map((item) => ({
                 _id: item._id.toString(),
                 title: item.title,
@@ -66,7 +66,7 @@ export class ViewsService {
 
     async getProduct(pid) {
         try {
-            const product = await ProductModel.findById(pid);
+            const product = await ProductMongo.getProduct(pid);
             const productSimplified = {
                 _id: product._id.toString(),
                 title: product.title,
@@ -85,7 +85,7 @@ export class ViewsService {
 
     async getCart(cid) {
         try {
-            const cart = await cartService.get(cid);
+            const cart = await cartService.getCart(cid);
             const simplifiedCart = cart.products.map((item) => ({
                 title: item.product.title,
                 price: item.product.price,

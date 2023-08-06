@@ -1,13 +1,15 @@
 export function isUser(req, res, next) {
-    if(req.session?.email){
+    if (req.session.user && req.session.user.role === 'user') {
         return next();
+    } else {
+        return res.status(403).json({ error: 'Access denied. Only users are allowed.' });
     }
-    return res.status(401).render('error', {error: "Authentication Error"});
 };
 
 export function isAdmin(req, res, next) {
-    if(req.session?.isAdmin){
+    if (req.session.user && req.session.user.role === 'admin') {
         return next();
+    } else {
+        return res.status(403).json({ error: 'Access denied. Only admins are allowed.' });
     }
-    return res.status(401).render('error', {error: "Authentication Error"});
 };
